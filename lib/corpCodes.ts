@@ -31,6 +31,8 @@ async function loadCorpCodes(): Promise<CorpCodeXmlEntry[]> {
   const xmlContent = xmlEntry.getData().toString('utf8');
   const parser = new XMLParser({
     isArray: (tagName) => tagName === 'list',
+    // stock_code, corp_code 등 숫자처럼 보이는 값이 number로 파싱되는 것을 방지
+    parseTagValue: false,
   });
   const parsed = parser.parse(xmlContent) as { result: { list: CorpCodeXmlEntry[] } };
 

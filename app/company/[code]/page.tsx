@@ -5,14 +5,13 @@ import { useDisclosures } from '@/hooks/useDisclosures';
 import { DisclosureFeed } from '@/components/feed/DisclosureFeed';
 import { CORP_CLASS_LABEL } from '@/types/dart';
 import { daysAgoString } from '@/lib/utils';
-import { use } from 'react';
 
 interface CompanyPageProps {
-  params: Promise<{ code: string }>;
+  params: { code: string };
 }
 
 export default function CompanyPage({ params }: CompanyPageProps) {
-  const { code } = use(params);
+  const { code } = params;
   const { watchlist, addToWatchlist, removeFromWatchlist, isWatched } = useWatchlist();
   const watched = isWatched(code);
 

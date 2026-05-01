@@ -7,10 +7,16 @@ import type { WatchlistItem } from '@/types/dart';
 
 export function CompanySearch() {
   const [query, setQuery] = useState('');
+  const [debouncedQuery, setDebouncedQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const { data: results = [], isLoading } = useCorpSearch(query);
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedQuery(query), 300);
+    return () => clearTimeout(timer);
+  }, [query]);
+
+  const { data: results = [], isLoading } = useCorpSearch(debouncedQuery);
   const { addToWatchlist, isWatched, watchlist } = useWatchlist();
 
   useEffect(() => {

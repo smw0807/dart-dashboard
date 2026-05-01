@@ -42,6 +42,19 @@ export const DISCLOSURE_TYPE_COLOR: Record<DisclosureType, string> = {
   J: 'bg-pink-100 text-pink-700',
 };
 
+export const DISCLOSURE_TYPE_CHART_COLOR: Record<DisclosureType, string> = {
+  A: '#3b82f6',
+  B: '#ef4444',
+  C: '#a855f7',
+  D: '#eab308',
+  E: '#6b7280',
+  F: '#f97316',
+  G: '#22c55e',
+  H: '#14b8a6',
+  I: '#6366f1',
+  J: '#ec4899',
+};
+
 export const CORP_CLASS_LABEL: Record<CorpClass, string> = {
   Y: '코스피',
   K: '코스닥',

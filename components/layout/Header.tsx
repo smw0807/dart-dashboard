@@ -12,6 +12,9 @@ export function Header() {
           <Link href="/" className="hover:text-gray-900">
             대시보드
           </Link>
+          <Link href="/charts" className="hover:text-gray-900">
+            차트
+          </Link>
         </nav>
       </div>
     </header>

@@ -5,14 +5,29 @@ import { CORP_CLASS_LABEL } from '@/types/dart';
 import { CompanySearch } from '@/components/ui/CompanySearch';
 import Link from 'next/link';
 
-export function Sidebar() {
+interface SidebarProps {
+  onClose?: () => void;
+}
+
+export function Sidebar({ onClose }: SidebarProps) {
   const { watchlist, removeFromWatchlist } = useWatchlist();
 
   return (
     <aside className="flex h-full w-60 flex-col border-r border-gray-200 bg-white p-4">
       <div className="mb-2 flex items-center justify-between">
         <h2 className="text-sm font-semibold text-gray-700">관심 종목</h2>
-        <span className="text-xs text-gray-400">{watchlist.length}/20</span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-gray-400">{watchlist.length}/20</span>
+          {onClose && (
+            <button
+              onClick={onClose}
+              className="flex h-5 w-5 items-center justify-center rounded text-xs text-gray-400 hover:bg-gray-100 hover:text-gray-600 sm:hidden"
+              aria-label="닫기"
+            >
+              ✕
+            </button>
+          )}
+        </div>
       </div>
 
       <CompanySearch />

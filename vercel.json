@@ -1,0 +1,6 @@
+{
+  "framework": "nextjs",
+  "env": {
+    "DART_API_KEY": "@dart_api_key"
+  }
+}

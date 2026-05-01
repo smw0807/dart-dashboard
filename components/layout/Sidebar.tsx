@@ -2,6 +2,7 @@
 
 import { useWatchlist } from '@/hooks/useWatchlist';
 import { CORP_CLASS_LABEL } from '@/types/dart';
+import { CompanySearch } from '@/components/ui/CompanySearch';
 import Link from 'next/link';
 
 export function Sidebar() {
@@ -9,15 +10,17 @@ export function Sidebar() {
 
   return (
     <aside className="flex h-full w-60 flex-col border-r border-gray-200 bg-white p-4">
-      <div className="mb-3 flex items-center justify-between">
+      <div className="mb-2 flex items-center justify-between">
         <h2 className="text-sm font-semibold text-gray-700">관심 종목</h2>
         <span className="text-xs text-gray-400">{watchlist.length}/20</span>
       </div>
 
+      <CompanySearch />
+
       {watchlist.length === 0 ? (
-        <p className="text-xs text-gray-400">관심 종목을 추가하세요.</p>
+        <p className="text-xs text-gray-400">기업명을 검색해서 추가하세요.</p>
       ) : (
-        <ul className="flex flex-col gap-1">
+        <ul className="flex flex-col gap-0.5 overflow-y-auto">
           {watchlist.map((item) => (
             <li
               key={item.corp_code}
@@ -34,8 +37,8 @@ export function Sidebar() {
               </Link>
               <button
                 onClick={() => removeFromWatchlist(item.corp_code)}
-                className="ml-1 text-gray-300 hover:text-red-400"
-                aria-label="삭제"
+                className="ml-1 shrink-0 text-gray-300 hover:text-red-400"
+                aria-label={`${item.corp_name} 삭제`}
               >
                 ✕
               </button>

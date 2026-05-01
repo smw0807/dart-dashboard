@@ -84,3 +84,10 @@ export interface SurgeAlert {
   prev30avg: number;
   ratio: number;
 }
+
+export interface FeedFilters {
+  pblntf_ty: DisclosureType | '';
+  bgn_de: string;
+  end_de: string;
+  last_reprt_at: 'Y' | 'N' | '';
+}

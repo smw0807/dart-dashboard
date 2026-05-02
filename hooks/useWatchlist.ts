@@ -8,18 +8,22 @@ export function useWatchlist() {
   const [watchlist, setWatchlist] = useState<WatchlistItem[]>([]);
 
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) setWatchlist(JSON.parse(stored));
-    } catch {
-      // localStorage 접근 불가 환경 무시
+    function syncFromStorage() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        setWatchlist(stored ? JSON.parse(stored) : []);
+      } catch {}
     }
+
+    syncFromStorage();
+    window.addEventListener('watchlist-updated', syncFromStorage);
+    return () => window.removeEventListener('watchlist-updated', syncFromStorage);
   }, []);
 
   const persist = useCallback((items: WatchlistItem[]) => {
-    setWatchlist(items);
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+      window.dispatchEvent(new CustomEvent('watchlist-updated'));
     } catch {}
   }, []);
 

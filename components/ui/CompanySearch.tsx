@@ -7,16 +7,11 @@ import type { WatchlistItem } from '@/types/dart';
 
 export function CompanySearch() {
   const [query, setQuery] = useState('');
-  const [debouncedQuery, setDebouncedQuery] = useState('');
+  const [submittedQuery, setSubmittedQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedQuery(query), 300);
-    return () => clearTimeout(timer);
-  }, [query]);
-
-  const { data: results = [], isLoading } = useCorpSearch(debouncedQuery);
+  const { data: results = [], isLoading } = useCorpSearch(submittedQuery);
   const { addToWatchlist, isWatched, watchlist } = useWatchlist();
 
   useEffect(() => {
@@ -29,9 +24,21 @@ export function CompanySearch() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  function handleSearch() {
+    const trimmed = query.trim();
+    if (!trimmed) return;
+    setSubmittedQuery(trimmed);
+    setIsOpen(true);
+  }
+
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') handleSearch();
+  }
+
   function handleAddCompany(item: WatchlistItem) {
     addToWatchlist(item);
     setQuery('');
+    setSubmittedQuery('');
     setIsOpen(false);
   }
 
@@ -39,18 +46,24 @@ export function CompanySearch() {
 
   return (
     <div ref={containerRef} className="relative mb-3">
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => {
-          setQuery(e.target.value);
-          setIsOpen(true);
-        }}
-        onFocus={() => query && setIsOpen(true)}
-        placeholder="기업명 검색 후 추가..."
-        className="w-full rounded border border-gray-200 px-3 py-1.5 text-sm placeholder-gray-400 focus:border-blue-400 focus:outline-none"
-      />
-      {isOpen && query.trim() && (
+      <div className="flex gap-1">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="기업명 검색..."
+          className="min-w-0 flex-1 rounded border border-gray-200 px-3 py-1.5 text-sm placeholder-gray-400 focus:border-blue-400 focus:outline-none"
+        />
+        <button
+          onClick={handleSearch}
+          disabled={!query.trim()}
+          className="shrink-0 rounded border border-blue-200 bg-blue-50 px-2.5 py-1.5 text-xs font-medium text-blue-600 hover:bg-blue-100 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          검색
+        </button>
+      </div>
+      {isOpen && submittedQuery && (
         <div className="absolute left-0 right-0 top-full z-50 mt-1 max-h-60 overflow-y-auto rounded border border-gray-200 bg-white shadow-lg">
           {isLoading && (
             <div className="px-3 py-2 text-xs text-gray-400">검색 중...</div>

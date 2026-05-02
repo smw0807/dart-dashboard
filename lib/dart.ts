@@ -36,18 +36,3 @@ export async function fetchDisclosures(params: SearchParams): Promise<DartApiRes
 export function getDartViewerUrl(rcept_no: string): string {
   return `https://dart.fss.or.kr/dsaf001/main.do?rcpNo=${rcept_no}`;
 }
-
-/** YYYYMMDD → Date 객체 */
-export function parseDartDate(dateStr: string): Date {
-  const y = dateStr.slice(0, 4);
-  const m = dateStr.slice(4, 6);
-  const d = dateStr.slice(6, 8);
-  return new Date(`${y}-${m}-${d}`);
-}
-
-/** N일 전 날짜를 YYYYMMDD 문자열로 반환 */
-export function daysAgoString(days: number): string {
-  const d = new Date();
-  d.setDate(d.getDate() - days);
-  return d.toISOString().slice(0, 10).replace(/-/g, '');
-}

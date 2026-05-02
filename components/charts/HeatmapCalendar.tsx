@@ -1,6 +1,6 @@
 'use client';
 
-import type { HeatmapDay } from '@/hooks/useChartData';
+import type { HeatmapDay } from '@/types/charts';
 
 interface HeatmapCalendarProps {
   data: HeatmapDay[];

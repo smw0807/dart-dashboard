@@ -9,7 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import type { CorpBar } from '@/hooks/useChartData';
+import type { CorpBar } from '@/types/charts';
 
 interface DisclosureBarChartProps {
   data: CorpBar[];

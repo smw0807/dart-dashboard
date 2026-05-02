@@ -8,6 +8,7 @@ import { HeatmapCalendar } from '@/components/charts/HeatmapCalendar';
 import { DonutChart } from '@/components/charts/DonutChart';
 import { DisclosureBarChart } from '@/components/charts/DisclosureBarChart';
 import { TimelineChart } from '@/components/charts/TimelineChart';
+import { ChartCard } from '@/components/charts/ChartCard';
 import { daysAgoString } from '@/lib/utils';
 import type { FeedFilters } from '@/types/dart';
 
@@ -42,41 +43,21 @@ export default function ChartsPage() {
       <h1 className="text-xl font-bold text-gray-900">공시 트렌드 시각화</h1>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <div className="rounded-lg border border-gray-200 bg-white p-5">
-          <h2 className="mb-4 text-sm font-semibold text-gray-700">공시 발생 캘린더 (최근 90일)</h2>
-          {isLoading ? (
-            <div className="h-20 animate-pulse rounded bg-gray-100" />
-          ) : (
-            <HeatmapCalendar data={chartData.heatmap} />
-          )}
-        </div>
+        <ChartCard title="공시 발생 캘린더 (최근 90일)" isLoading={isLoading} skeletonHeight="h-20">
+          <HeatmapCalendar data={chartData.heatmap} />
+        </ChartCard>
 
-        <div className="rounded-lg border border-gray-200 bg-white p-5">
-          <h2 className="mb-4 text-sm font-semibold text-gray-700">공시 유형 분포</h2>
-          {isLoading ? (
-            <div className="h-48 animate-pulse rounded bg-gray-100" />
-          ) : (
-            <DonutChart data={chartData.donut} />
-          )}
-        </div>
+        <ChartCard title="공시 유형 분포" isLoading={isLoading}>
+          <DonutChart data={chartData.donut} />
+        </ChartCard>
 
-        <div className="rounded-lg border border-gray-200 bg-white p-5">
-          <h2 className="mb-4 text-sm font-semibold text-gray-700">기업별 공시 빈도</h2>
-          {isLoading ? (
-            <div className="h-48 animate-pulse rounded bg-gray-100" />
-          ) : (
-            <DisclosureBarChart data={chartData.bars} />
-          )}
-        </div>
+        <ChartCard title="기업별 공시 빈도" isLoading={isLoading}>
+          <DisclosureBarChart data={chartData.bars} />
+        </ChartCard>
 
-        <div className="rounded-lg border border-gray-200 bg-white p-5">
-          <h2 className="mb-4 text-sm font-semibold text-gray-700">공시 흐름 타임라인</h2>
-          {isLoading ? (
-            <div className="h-48 animate-pulse rounded bg-gray-100" />
-          ) : (
-            <TimelineChart data={chartData.timeline} />
-          )}
-        </div>
+        <ChartCard title="공시 흐름 타임라인" isLoading={isLoading}>
+          <TimelineChart data={chartData.timeline} />
+        </ChartCard>
       </div>
     </div>
   );

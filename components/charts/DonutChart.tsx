@@ -1,7 +1,7 @@
 'use client';
 
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import type { TypeSlice } from '@/hooks/useChartData';
+import type { TypeSlice } from '@/types/charts';
 
 interface DonutChartProps {
   data: TypeSlice[];

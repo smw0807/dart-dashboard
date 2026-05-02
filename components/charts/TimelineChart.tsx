@@ -9,7 +9,7 @@ import {
   Area,
   AreaChart,
 } from 'recharts';
-import type {TimelinePoint} from '@/hooks/useChartData';
+import type { TimelinePoint } from '@/types/charts';
 
 interface TimelineChartProps {
   data: TimelinePoint[];
